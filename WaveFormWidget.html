@@ -1,1 +1,93 @@
-https://github.com/mattcar265/BigZCodeSnippets.git
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>WaveSurver Example</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+            rel="stylesheet"
+        />
+    </head>
+    <style>
+        body {
+            background-color: black;
+        }
+        .waveforms {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .waveContainer {
+            display: grid;
+            align-items: center;
+            grid-template-columns: auto 1fr;
+        }
+        button {
+            background-color: transparent;
+            border: none;
+        }
+        .fa-play {
+            color: white;
+        }
+    </style>
+    <body>
+        <div class="waveforms">
+            <!-- the waveform will be rendered here -->
+        </div>
+
+        <script type="module">
+            import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
+
+            const waveforms = document.querySelector(".waveforms");
+
+            const createWaveForm = (url) => {
+                const container = ".waveContainer";
+
+                const waveContainer = document.createElement("div");
+                waveContainer.classList.add("waveContainer");
+
+                waveforms.appendChild(waveContainer);
+
+                const playButton = document.createElement("button");
+                playButton.classList.add("fa");
+                playButton.classList.add("fa-play");
+
+                waveContainer.append(playButton);
+
+                const wavesurfer = WaveSurfer.create({
+                    url: url,
+                    container: waveContainer,
+                    waveColor: "#898b96",
+                    progressColor: "white",
+                    barHeight: 0.1,
+                    width: "100%",
+                    cursorWidth: 0,
+                });
+
+                wavesurfer.on("interaction", () => {
+                    wavesurfer.play();
+                });
+            };
+
+            createWaveForm("./Demo Track - Chill House.wav");
+            createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+            // createWaveForm("./Demo Track - Chill House.wav");
+        </script>
+    </body>
+</html>
+
