@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>WaveSurver Example</title>
+        <title>WaveSurfer Example</title>
         <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
             rel="stylesheet"
@@ -96,9 +96,11 @@
                     hideScrollbar: true,
                 });
 
-                // wavesurfer.on("interaction", () => {
-                //     wavesurfer.play();
-                // });
+                wavesurfer.on("finish", () => {
+                    wavesurfer.seekTo(0);
+                    playButton.classList.remove("fa-pause");
+                    playButton.classList.add("fa-play");
+                });
 
                 playButton.addEventListener("click", () => {
                     waveforms.forEach((wf) => {
