@@ -12,8 +12,15 @@
     <style>
         body {
             background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .waveforms {
+            width: 1068px;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #202021;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 10px;
@@ -26,14 +33,29 @@
         button {
             background-color: transparent;
             border: none;
+            margin-left: 15px;
+            margin-right: 5px;
         }
         .fa-play {
             color: white;
+            font-size: 16px;
+        }
+        .previewTitle {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            margin-top: 5px;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+            opacity: 0.7;
+            letter-spacing: 0.5px;
+            height: 24px;
+
+            grid-column: 1 / -1;
         }
     </style>
     <body>
         <div class="waveforms">
-            <!-- the waveform will be rendered here -->
+            <!-- waveforms are rendered in here -->
         </div>
 
         <script type="module">
@@ -60,21 +82,26 @@
                     container: waveContainer,
                     waveColor: "#898b96",
                     progressColor: "white",
-                    barHeight: 0.1,
-                    width: "100%",
+                    height: 26,
                     cursorWidth: 0,
+                    hideScrollbar: true,
                 });
 
                 wavesurfer.on("interaction", () => {
                     wavesurfer.play();
                 });
+
+                const previewTitle = document.createElement("p");
+                previewTitle.classList.add("previewTitle");
+                previewTitle.innerText = "LD Conquest";
+                waveContainer.append(previewTitle);
             };
 
-            createWaveForm("./Demo Track - Chill House.wav");
-            createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
+            createWaveForm("./LD Conquest.wav");
+            createWaveForm("./LD Conquest.wav");
+            createWaveForm("./LD Conquest.wav");
+            createWaveForm("./LD Conquest.wav");
+            createWaveForm("./LD Conquest.wav");
 
             // createWaveForm("./Demo Track - Chill House.wav");
             // createWaveForm("./Demo Track - Chill House.wav");
@@ -90,4 +117,3 @@
         </script>
     </body>
 </html>
-
