@@ -30,13 +30,19 @@
             align-items: center;
             grid-template-columns: auto 1fr;
         }
-        button {
+        .fa.fa-play,
+        .fa.fa-pause {
             background-color: transparent;
+            cursor: pointer;
             border: none;
             margin-left: 15px;
             margin-right: 5px;
         }
         .fa-play {
+            color: white;
+            font-size: 16px;
+        }
+        .fa-pause {
             color: white;
             font-size: 16px;
         }
@@ -49,7 +55,6 @@
             opacity: 0.7;
             letter-spacing: 0.5px;
             height: 24px;
-
             grid-column: 1 / -1;
         }
     </style>
@@ -61,7 +66,8 @@
         <script type="module">
             import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
 
-            const waveforms = document.querySelector(".waveforms");
+            const waveformsContainer = document.querySelector(".waveforms");
+            const waveforms = [];
 
             const createWaveForm = (url) => {
                 const container = ".waveContainer";
@@ -69,9 +75,12 @@
                 const waveContainer = document.createElement("div");
                 waveContainer.classList.add("waveContainer");
 
-                waveforms.appendChild(waveContainer);
+                waveformsContainer.appendChild(waveContainer);
 
                 const playButton = document.createElement("button");
+                const playButtonId =
+                    "play-button-" + Math.random().toString(36).substring(7);
+                playButton.id = playButtonId;
                 playButton.classList.add("fa");
                 playButton.classList.add("fa-play");
 
@@ -82,38 +91,64 @@
                     container: waveContainer,
                     waveColor: "#898b96",
                     progressColor: "white",
-                    height: 26,
+                    height: 20,
                     cursorWidth: 0,
                     hideScrollbar: true,
                 });
 
-                wavesurfer.on("interaction", () => {
-                    wavesurfer.play();
+                // wavesurfer.on("interaction", () => {
+                //     wavesurfer.play();
+                // });
+
+                playButton.addEventListener("click", () => {
+                    waveforms.forEach((wf) => {
+                        if (wf !== wavesurfer && wf.isPlaying()) {
+                            wf.pause();
+                            const button = document.getElementById(
+                                wf.playButtonId
+                            );
+                            button.classList.remove("fa-pause");
+                            button.classList.add("fa-play");
+                        }
+                    });
+
+                    if (!wavesurfer.isPlaying()) {
+                        wavesurfer.play();
+                        playButton.classList.remove("fa-play");
+                        playButton.classList.add("fa-pause");
+                    } else {
+                        wavesurfer.pause();
+                        playButton.classList.remove("fa-pause");
+                        playButton.classList.add("fa-play");
+                    }
                 });
 
                 const previewTitle = document.createElement("p");
                 previewTitle.classList.add("previewTitle");
                 previewTitle.innerText = "LD Conquest";
                 waveContainer.append(previewTitle);
+
+                waveforms.push(wavesurfer);
+                wavesurfer.playButtonId = playButtonId;
             };
 
-            createWaveForm("./LD Conquest.wav");
-            createWaveForm("./LD Conquest.wav");
-            createWaveForm("./LD Conquest.wav");
-            createWaveForm("./LD Conquest.wav");
-            createWaveForm("./LD Conquest.wav");
+            createWaveForm("./previews/BA Ibiza.wav");
+            createWaveForm("./previews/BA M1 Modern.wav");
+            createWaveForm("./previews/BA Pogo Stick.wav");
+            createWaveForm("./previews/BA Rolling Bass 2.wav");
+            createWaveForm("./previews/LD Conquest.wav");
 
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
+            createWaveForm("./previews/LD Electric Love.wav");
+            createWaveForm("./previews/LD Hero.wav");
+            createWaveForm("./previews/LD Quantum.wav");
+            createWaveForm("./previews/LD Stratosphere.wav");
+            createWaveForm("./previews/LD Yosemite.wav");
 
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
-            // createWaveForm("./Demo Track - Chill House.wav");
+            createWaveForm("./previews/PD Dirty.wav");
+            createWaveForm("./previews/PD Smooth Bliss.wav");
+            createWaveForm("./previews/ST Donk Stab.wav");
+            createWaveForm("./previews/ST Signature Stab.wav");
+            createWaveForm("./previews/SY Vintage Combo.wav");
         </script>
     </body>
 </html>
