@@ -1,7 +1,7 @@
 {% raw %}
 <style>
   .waveformPreviews {
-      background-color: black;
+      background: transparent;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -10,7 +10,8 @@
       width: 1170px;
       padding: 40px;
       border-radius: 7.5px;
-      background-color: #202021;
+    background: transparent;
+      /* background-color: #202021; */
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
@@ -94,8 +95,8 @@
       const wavesurfer = WaveSurfer.create({
           url: url,
           container: waveContainer,
-          waveColor: "#898b96" /*#1fabee*/,
-          progressColor: "white",
+          waveColor: "#333" /*#898b96*/,
+          progressColor: "#1fabee",
           dragToSeek: true,
           height: 20,
           cursorWidth: 0,
