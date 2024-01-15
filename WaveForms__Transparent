@@ -1,0 +1,186 @@
+{% raw %}
+<style>
+  .waveformPreviews {
+      margin-top: 50px;
+      margin-bottom: 50px;
+      transform: scale(1.1);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .waveforms {
+      width: 1170px;
+      padding: 40px;
+      border-radius: 7.5px;
+    background: transparent;
+      /* background-color: #202021; */
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+  }
+  .waveContainer {
+      display: grid;
+      align-items: center;
+      grid-template-columns: auto 1fr;
+  }
+  .fa.fa-play,
+  .fa.fa-pause {
+      background-color: transparent;
+      cursor: pointer;
+      border: none;
+      margin-left: 15px;
+      margin-right: 10px;
+  }
+  .fa-play {
+      color: white;
+      font-size: 16px;
+  }
+  .fa-pause {
+      color: white;
+      font-size: 16px;
+  }
+  .previewTitle {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin-top: 5px;
+      text-align: center;
+      font-size: 12px;
+      color: white;
+      letter-spacing: 0.5px;
+      height: 24px;
+      grid-column: 1 / -1;
+  }
+  @media (max-width: 949px) {
+      .waveforms {
+          grid-template-columns: repeat(2, 1fr);
+      }
+  }
+  @media (max-width: 650px) {
+      .waveforms {
+          grid-template-columns: repeat(1, 1fr);
+      }
+  }
+</style>
+<div class="waveformPreviews">
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    rel="stylesheet"
+  >
+  <div class="waveforms">
+    <!-- waveforms are rendered in here -->
+  </div>
+</div>
+
+<script type="module">
+  import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
+  
+  const waveformsContainer = document.querySelector(".waveforms");
+  const waveforms = [];
+
+  const createWaveForm = (url) => {
+      const container = ".waveContainer";
+
+      const waveContainer = document.createElement("div");
+      waveContainer.classList.add("waveContainer");
+
+      waveformsContainer.appendChild(waveContainer);
+
+      const playButton = document.createElement("button");
+      const playButtonId =
+          "play-button-" + Math.random().toString(36).substring(7);
+      playButton.id = playButtonId;
+      playButton.classList.add("fa");
+      playButton.classList.add("fa-play");
+
+      waveContainer.append(playButton);
+
+      const wavesurfer = WaveSurfer.create({
+          url: url,
+          container: waveContainer,
+          waveColor: "#444" /*#898b96*/,
+          progressColor: "#1fabee",
+          dragToSeek: true,
+          height: 20,
+          cursorWidth: 0,
+          hideScrollbar: true,
+      });
+
+      wavesurfer.on("finish", () => {
+          wavesurfer.seekTo(0);
+          playButton.classList.remove("fa-pause");
+          playButton.classList.add("fa-play");
+      });
+
+      playButton.addEventListener("click", () => {
+          waveforms.forEach((wf) => {
+              if (wf !== wavesurfer) {
+                  wf.pause();
+                  wf.seekTo(0);
+                  const button = document.getElementById(
+                      wf.playButtonId
+                  );
+                  button.classList.remove("fa-pause");
+                  button.classList.add("fa-play");
+              }
+          });
+
+          if (!wavesurfer.isPlaying()) {
+              wavesurfer.play();
+              playButton.classList.remove("fa-play");
+              playButton.classList.add("fa-pause");
+          } else {
+              wavesurfer.pause();
+              playButton.classList.remove("fa-pause");
+              playButton.classList.add("fa-play");
+          }
+      });
+
+      wavesurfer.on('interaction', () => {
+          waveforms.forEach((wf) => {
+              if (wf !== wavesurfer) {
+                  wf.pause();
+                  wf.seekTo(0);
+                  const button = document.getElementById(
+                      wf.playButtonId
+                  );
+                  button.classList.remove("fa-pause");
+                  button.classList.add("fa-play");
+              }
+          });
+      })
+
+      const previewTitle = document.createElement("p");
+      previewTitle.classList.add("previewTitle");
+
+      const fileName = url.split("/").pop();
+      const previewNameUnderscores = fileName.split('.')[0];
+      const previewName = previewNameUnderscores.replaceAll("_", " ");
+    
+      previewTitle.innerText = previewName;
+      waveContainer.append(previewTitle);
+
+      waveforms.push(wavesurfer);
+      wavesurfer.playButtonId = playButtonId;
+  };
+
+  
+
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/BA_Ibiza.wav?v=1705279203");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/BA_M1_Modern.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/BA_Pogo_Stick.wav?v=1705279522");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/BA_Rolling_Bass_2.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Conquest.wav?v=1705279527");
+
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Electric_Love.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Hero.wav?v=1705279526");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Quantum.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Stratosphere.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/LD_Yosemite.wav?v=1705279527");
+
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/PD_Dirty.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/PD_Smooth_Bliss.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/ST_Donk_Stab.wav?v=1705279523");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/ST_Signature_Stab.wav?v=1705279527");
+  createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/SY_Vintage_Combo.wav?v=1705279527");
+</script>
+{% endraw %}
