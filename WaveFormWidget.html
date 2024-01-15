@@ -139,9 +139,11 @@
       const previewTitle = document.createElement("p");
       previewTitle.classList.add("previewTitle");
 
-      
+      const fileName = url.split("/").pop();
+      const previewNameUnderscores = fileName.split('.')[0];
+      const previewName = previewNameUnderscores.replaceAll("_", " ");
     
-      previewTitle.innerText = "LD Conquest";
+      previewTitle.innerText = previewName;
       waveContainer.append(previewTitle);
 
       waveforms.push(wavesurfer);
