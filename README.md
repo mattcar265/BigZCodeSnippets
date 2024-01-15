@@ -1,5 +1,5 @@
-# Viewing the code
-It ended up being all new written code saved under: Online Store > Themes > 3 dots to the right of Debut > Edit code > Snippets folder > wave-form-previews.liquid
+# Viewing the widget's code on your site
+It ended up being all new written code saved under: [wave-form-previews.liquid](https://admin.shopify.com/store/big-z-sounds/themes/79137013832)
 
 # Adding an audio file
 The audio files are all uploaded to the Content > files tab of the admin menu
