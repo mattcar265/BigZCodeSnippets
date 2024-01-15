@@ -1,0 +1,173 @@
+{% raw %}
+<style>
+    .waveformPreviews__Demo {
+        margin-top: 50px;
+        margin-bottom: 50px;
+        transform: scale(1.1);
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .waveforms__Demo {
+        width: 1170px;
+        padding: 40px;
+        border-radius: 7.5px;
+        background: transparent;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 40px;
+    }
+    .waveContainer__Demo {
+        display: grid;
+        align-items: center;
+        grid-template-columns: auto 1fr;
+    }
+    .previewTitle__Demo {
+        font-family: inherit;
+        margin-top: 5px;
+        text-align: center;
+        font-size: 16px;
+        color: white;
+        height: 24px;
+        grid-column: 1 / -1;
+    }
+    .fa.fa-play,
+    .fa.fa-pause {
+        background-color: transparent;
+        border: none;
+        margin-left: 15px;
+        margin-right: 10px;
+        transition: 0.1s;
+    }
+    .waveContainer__Demo button.fa.fa-play,
+    .waveContainer__Demo button.fa.fa-pause {
+        font-size: 22px;
+        width: 50px;
+        height: 50px;
+    }
+    .buttonContainer__Demo {
+        background: transparent;
+        border: none;
+    }
+</style>
+<div class="waveformPreviews__Demo">
+    <link
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        rel="stylesheet"
+    >
+    <div class="waveforms__Demo">
+        <!-- waveforms are rendered in here -->
+    </div>
+</div>
+
+<script type="module">
+    import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
+    
+    const waveformsContainer = document.querySelector(".waveforms__Demo");
+
+    const createWaveForm = (url) => {
+        const container = ".waveContainer__Demo";
+  
+        const waveContainer = document.createElement("div");
+        waveContainer.classList.add("waveContainer__Demo");
+  
+        waveformsContainer.appendChild(waveContainer);
+
+        const buttonContainer = document.createElement("button");
+        buttonContainer.classList.add("buttonContainer__Demo")
+  
+        const playButton = document.createElement("button");
+        const playButtonId =
+            "play-button-" + Math.random().toString(36).substring(7);
+        playButton.id = playButtonId;
+        playButton.classList.add("fa");
+        playButton.classList.add("fa-play");
+        buttonContainer.append(playButton)
+  
+        waveContainer.append(buttonContainer);
+  
+        const wavesurfer = WaveSurfer.create({
+            url: url,
+            container: waveContainer,
+            waveColor: "#777",
+            progressColor: "#1fabee",
+            dragToSeek: true,
+            height: 40,
+            cursorWidth: 0,
+            hideScrollbar: true,
+        });
+  
+        wavesurfer.on("finish", () => {
+            wavesurfer.seekTo(0);
+            playButton.classList.remove("fa-pause");
+            playButton.classList.add("fa-play");
+        });
+  
+        buttonContainer.addEventListener("click", () => {
+            waveforms.forEach((wf) => {
+                if (wf !== wavesurfer) {
+                    wf.pause();
+                    wf.seekTo(0);
+                    const button = document.getElementById(
+                        wf.playButtonId
+                    );
+                    button.classList.remove("fa-pause");
+                    button.classList.add("fa-play");
+                }
+            });
+  
+            if (!wavesurfer.isPlaying()) {
+                wavesurfer.play();
+                playButton.classList.remove("fa-play");
+                playButton.classList.add("fa-pause");
+            } else {
+                wavesurfer.pause();
+                playButton.classList.remove("fa-pause");
+                playButton.classList.add("fa-play");
+            }
+        });
+
+        buttonContainer.addEventListener(("mousedown"), () => {
+            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
+            thisButton.style.transform = "scale(0.8)";
+        })
+  
+        buttonContainer.addEventListener(("mouseup"), () => {
+            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
+            thisButton.style.transform = "scale(1)";
+        })
+  
+        wavesurfer.on('interaction', () => {
+            waveforms.forEach((wf) => {
+                if (wf !== wavesurfer) {
+                    wf.pause();
+                    wf.seekTo(0);
+                    const button = document.getElementById(
+                        wf.playButtonId
+                    );
+                    button.classList.remove("fa-pause");
+                    button.classList.add("fa-play");
+                }
+            });
+        })
+  
+        const previewTitle = document.createElement("p");
+        previewTitle.classList.add("previewTitle__Demo");
+  
+        const fileName = url.split("/").pop();
+        const previewNameUnderscores = fileName.split('.')[0];
+        const previewName = previewNameUnderscores.replaceAll("_", " ");
+      
+        previewTitle.innerText = previewName;
+        waveContainer.append(previewTitle);
+  
+        waveforms.push(wavesurfer);
+        wavesurfer.playButtonId = playButtonId;
+    };
+  
+    createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/Demo_Track_-_Chill_House.wav?v=1705352349");
+    createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/Demo_Track_-_Melodic_Techno.wav?v=1705352350");
+    createWaveForm("https://cdn.shopify.com/s/files/1/0269/7668/2056/files/Demo_Track_-_Tech_House.wav?v=1705352348");
+</script>
+{% endraw %}
