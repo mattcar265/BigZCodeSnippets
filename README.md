@@ -1,7 +1,7 @@
 # Change to the blue or transparent
 ![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/a3736462-94ce-498c-a0fb-13edaae94d6b)
 Navigate to the above code editor, then add 
-  {% include 'wave-form-previews' %}
+`{% include 'wave-form-previews' %}`
 
 # Adding an audio file
 The audio files are all uploaded to the [Content > files](https://admin.shopify.com/store/big-z-sounds/content/files?selectedView=all) tab of the admin menu
