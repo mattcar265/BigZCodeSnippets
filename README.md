@@ -1,6 +1,6 @@
 # Change to the blue or transparent
 ![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/a3736462-94ce-498c-a0fb-13edaae94d6b)
-Navigate to the above code editor, then add 
+Navigate to the above code editor, then   
 `{% include 'wave-form-previews' %}`
 
 # Adding an audio file
