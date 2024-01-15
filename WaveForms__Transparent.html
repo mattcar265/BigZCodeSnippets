@@ -13,8 +13,7 @@
       width: 1170px;
       padding: 40px;
       border-radius: 7.5px;
-    background: transparent;
-      /* background-color: #202021; */
+      background: transparent;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
@@ -24,6 +23,19 @@
       align-items: center;
       grid-template-columns: auto 1fr;
   }
+  .fa-pause {
+      color: white;
+      font-size: 16px;
+  }
+  .previewTitle {
+      font-family: inherit;
+      margin-top: 5px;
+      text-align: center;
+      font-size: 16px;
+      color: white;
+      height: 24px;
+      grid-column: 1 / -1;
+  }
   .fa.fa-play,
   .fa.fa-pause {
       background-color: transparent;
@@ -31,25 +43,20 @@
       border: none;
       margin-left: 15px;
       margin-right: 10px;
+      transition: 0.1s;
   }
-  .fa-play {
-      color: white;
-      font-size: 16px;
+
+.fa-play {
+  color: white;
+  z-index: 0;
+  font-size: 16px;
+  position: relative;
+}
+  .fa-play:active,
+  .fa-pause:active {
+    transform: scale(0.8);
   }
-  .fa-pause {
-      color: white;
-      font-size: 16px;
-  }
-  .previewTitle {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-      margin-top: 5px;
-      text-align: center;
-      font-size: 12px;
-      color: white;
-      letter-spacing: 0.5px;
-      height: 24px;
-      grid-column: 1 / -1;
-  }
+
   @media (max-width: 949px) {
       .waveforms {
           grid-template-columns: repeat(2, 1fr);
@@ -97,10 +104,10 @@
       const wavesurfer = WaveSurfer.create({
           url: url,
           container: waveContainer,
-          waveColor: "#444" /*#898b96*/,
+          waveColor: "#444",
           progressColor: "#1fabee",
           dragToSeek: true,
-          height: 20,
+          height: 25,
           cursorWidth: 0,
           hideScrollbar: true,
       });
@@ -133,7 +140,12 @@
               playButton.classList.remove("fa-pause");
               playButton.classList.add("fa-play");
           }
+        
       });
+
+      playButton.addEventListener("click", () => {
+          
+      })
 
       wavesurfer.on('interaction', () => {
           waveforms.forEach((wf) => {
