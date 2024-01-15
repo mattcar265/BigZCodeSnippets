@@ -23,10 +23,6 @@
         align-items: center;
         grid-template-columns: auto 1fr;
     }
-    .fa-pause {
-        color: white;
-        font-size: 16px;
-    }
     .previewTitle {
         font-family: inherit;
         margin-top: 5px;
@@ -39,21 +35,19 @@
     .fa.fa-play,
     .fa.fa-pause {
         background-color: transparent;
-        cursor: pointer;
         border: none;
         margin-left: 15px;
         margin-right: 10px;
         transition: 0.1s;
     }
-    .fa-play {
-        color: white;
-        z-index: 0;
-        font-size: 16px;
-        position: relative;
+    .waveContainer button.fa.fa-play,
+    .waveContainer button.fa.fa-pause {
+        width: 30px;
+        height: 30px;
     }
-    .fa-play:active,
-    .fa-pause:active {
-        transform: scale(0.8);
+    .buttonContainer {
+        background: transparent;
+        border: none;
     }
     @media (max-width: 949px) {
         .waveforms {
@@ -78,10 +72,8 @@
 
 <script type="module">
     import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
-    
     const waveformsContainer = document.querySelector(".waveforms");
-    const waveforms = [];
-  
+
     const createWaveForm = (url) => {
         const container = ".waveContainer";
   
@@ -89,15 +81,19 @@
         waveContainer.classList.add("waveContainer");
   
         waveformsContainer.appendChild(waveContainer);
-  
+
+        const buttonContainer = document.createElement("button");
+        buttonContainer.classList.add("buttonContainer")
+      
         const playButton = document.createElement("button");
         const playButtonId =
             "play-button-" + Math.random().toString(36).substring(7);
         playButton.id = playButtonId;
         playButton.classList.add("fa");
         playButton.classList.add("fa-play");
+        buttonContainer.append(playButton)
   
-        waveContainer.append(playButton);
+        waveContainer.append(buttonContainer);
   
         const wavesurfer = WaveSurfer.create({
             url: url,
@@ -116,7 +112,7 @@
             playButton.classList.add("fa-play");
         });
   
-        playButton.addEventListener("click", () => {
+        buttonContainer.addEventListener("click", () => {
             waveforms.forEach((wf) => {
                 if (wf !== wavesurfer) {
                     wf.pause();
@@ -138,8 +134,17 @@
                 playButton.classList.remove("fa-pause");
                 playButton.classList.add("fa-play");
             }
-          
         });
+
+        buttonContainer.addEventListener(("mousedown"), () => {
+            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
+            thisButton.style.transform = "scale(0.8)";
+        })
+  
+        buttonContainer.addEventListener(("mouseup"), () => {
+            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
+            thisButton.style.transform = "scale(1)";
+        })
   
         wavesurfer.on('interaction', () => {
             waveforms.forEach((wf) => {
