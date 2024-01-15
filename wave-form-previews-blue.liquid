@@ -39,21 +39,19 @@
     .fa.fa-play,
     .fa.fa-pause {
         background-color: transparent;
-        cursor: pointer;
         border: none;
         margin-left: 15px;
         margin-right: 10px;
         transition: 0.1s;
     }
-    .fa-play {
-        color: white;
-        z-index: 0;
-        font-size: 16px;
-        position: relative;
+    .waveContainer button.fa.fa-play,
+    .waveContainer button.fa.fa-pause {
+        width: 30px;
+        height: 30px;
     }
-    .fa-play:active,
-    .fa-pause:active {
-        transform: scale(0.8);
+    .buttonContainer {
+        background: transparent;
+        border: none;
     }
     @media (max-width: 949px) {
         .waveforms {
@@ -80,7 +78,6 @@
     import WaveSurfer from "https://unpkg.com/wavesurfer.js@7/dist/wavesurfer.esm.js";
     
     const waveformsContainer = document.querySelector(".waveforms");
-    const waveforms = [];
   
     const createWaveForm = (url) => {
         const container = ".waveContainer";
