@@ -7,13 +7,13 @@
       justify-content: center;
   }
   .waveforms {
-      width: 1068px;
-      padding: 20px;
-      border-radius: 15px;
+      width: 1170px;
+      padding: 40px;
+      border-radius: 7.5px;
       background-color: #202021;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 40px;
   }
   .waveContainer {
       display: grid;
@@ -26,7 +26,7 @@
       cursor: pointer;
       border: none;
       margin-left: 15px;
-      margin-right: 5px;
+      margin-right: 10px;
   }
   .fa-play {
       color: white;
@@ -46,6 +46,16 @@
       letter-spacing: 0.5px;
       height: 24px;
       grid-column: 1 / -1;
+  }
+  @media (max-width: 949px) {
+      .waveforms {
+          grid-template-columns: repeat(2, 1fr);
+      }
+  }
+  @media (max-width: 650px) {
+      .waveforms {
+          grid-template-columns: repeat(1, 1fr);
+      }
   }
 </style>
 <div class="waveformPreviews">
