@@ -74,6 +74,9 @@
     .buttonContainer__DemoActive {
         background-color: #1fabee;
     }
+    .buttonContainer__Demo:active {
+      transform: scale(0.8);
+    }
     @media (max-width: 650px) {
         .fa.fa-play,
         .fa.fa-pause {
@@ -115,6 +118,21 @@
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
+    // const updateButtonContainer = (button) => {
+    //     if (button.classList.contains('fa-play')) {
+    //         // Add a specific class to the button's parent container
+    //         button.closest('.buttonContainer').classList.add('your-new-class');
+    //     } else {
+    //         // Optionally, remove the class if 'fa-play' is not present
+    //         button.closest('.buttonContainer').classList.remove('your-new-class');
+    //     }
+    // };
+    
+    // // Add event listeners to each button
+    // playButtons.forEach(button => {
+    //     button.addEventListener('click', () => updateButtonContainer(button));
+    // });
+
     const createWaveForm = (url) => {
         const container = ".waveContainer__Demo";
   
@@ -153,7 +171,6 @@
                 barRadius: 2,
                 height: 50,
                 cursorWidth: 2,
-                cursorHeight: 100,
                 hideScrollbar: true,
                 minPxPerSec: 100,
                 normalize: false,
@@ -172,9 +189,8 @@
             wavesurfer.seekTo(0);
             playButton.classList.remove("fa-pause");
             playButton.classList.add("fa-play");
-            // if(isMobileDevice()) {
-                buttonContainer.classList.remove("buttonContainer__DemoActive");
-            // }
+            playButton.parentNode.classList.remove("buttonContainer__DemoActive");
+            playButton.parentNode.classList.remove("buttonContainer__Demo");
         });
   
         buttonContainer.addEventListener("click", () => {
@@ -187,9 +203,8 @@
                     );
                     button.classList.remove("fa-pause");
                     button.classList.add("fa-play");
-                    // if(isMobileDevice()) {
-                        button.parentNode.classList.remove("buttonContainer__DemoActive");
-                    // }
+                    button.parentNode.classList.remove("buttonContainer__DemoActive");
+                    button.parentNode.classList.remove("buttonContainer__Active");
                 }
             });
   
@@ -197,28 +212,15 @@
                 wavesurfer.play();
                 playButton.classList.remove("fa-play");
                 playButton.classList.add("fa-pause");
-                // if(isMobileDevice()) {
-                  buttonContainer.classList.add("buttonContainer__DemoActive");
-                // }
+                playButton.parentNode.classList.add("buttonContainer__DemoActive");
             } else {
                 wavesurfer.pause();
                 playButton.classList.remove("fa-pause");
                 playButton.classList.add("fa-play");
-                // if(isMobileDevice()) {
-                  buttonContainer.classList.remove("buttonContainer__DemoActive");
-                // }
+                playButton.parentNode.classList.remove("buttonContainer__DemoActive");
+                playButton.parentNode.classList.remove("buttonContainer__Active");
             }
         });
-
-        buttonContainer.addEventListener(("mousedown"), () => {
-            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-            thisButton.style.transform = "scale(0.8)";
-        })
-  
-        buttonContainer.addEventListener(("mouseup"), () => {
-            const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-            thisButton.style.transform = "scale(1)";
-        })
   
         wavesurfer.on('interaction', () => {
             waveforms.forEach((wf) => {
@@ -230,9 +232,8 @@
                     );
                     button.classList.remove("fa-pause");
                     button.classList.add("fa-play");
-                    // if(isMobileDevice()) {
-                        button.parentNode.classList.remove("buttonContainer__DemoActive");
-                    // }
+                    button.parentNode.classList.remove("buttonContainer__DemoActive");
+                    button.parentNode.classList.remove("buttonContainer__Active");
                 }
             });
         })
