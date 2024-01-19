@@ -167,6 +167,14 @@
             playButton.parentNode.classList.remove("buttonContainer__Active");
         });
 
+        wavesurfer.on('seek', () => {
+            if (wavesurfer.getCurrentTime() > 0) {
+                buttonContainer.classList.add("buttonContainer__Active");
+            } else {
+                buttonContainer.classList.remove("buttonContainer__Active");
+            }
+        });
+      
         buttonContainer.addEventListener("click", () => {
             waveforms.forEach((wf) => {
                 if (wf !== wavesurfer) {
@@ -177,7 +185,6 @@
                     );
                     button.classList.remove("fa-pause");
                     button.classList.add("fa-play");
-                  console.log("here")
                     button.parentNode.classList.remove("buttonContainer__Active");
                     button.parentNode.classList.remove("buttonContainer__DemoActive");
                 }
@@ -192,8 +199,6 @@
                 wavesurfer.pause();
                 playButton.classList.remove("fa-pause");
                 playButton.classList.add("fa-play");
-                playButton.parentNode.classList.remove("buttonContainer__Active");
-                playButton.parentNode.classList.remove("buttonContainer__DemoActive");
             }
         });
       
@@ -221,19 +226,13 @@
                       button.parentNode.classList.remove("buttonContainer__DemoActive");
                   }
               });
+              if (wavesurfer.getCurrentTime() > 0) {
+                  buttonContainer.classList.add("buttonContainer__Active");
+              } else {
+                  buttonContainer.classList.remove("buttonContainer__Active");
+              }
           })
         }
-
-      // if(isMobileDevice()) {
-      //     buttonContainer.addEventListener(("click"), () => {
-      //         buttonContainer.style.backgroundColor = "red";
-      //     })
-    
-      //     buttonContainer.addEventListener(("mouseup"), () => {
-      //         const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-      //         thisButton.style.transform = "scale(1)";
-      //     })
-      // }
     
         const previewTitle = document.createElement("p");
         previewTitle.classList.add("previewTitle");
