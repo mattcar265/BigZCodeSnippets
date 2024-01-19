@@ -164,7 +164,7 @@
             wavesurfer.seekTo(0);
             playButton.classList.remove("fa-pause");
             playButton.classList.add("fa-play");
-            buttonContainer.classList.remove("buttonContainer__Active");
+            playButton.parentNode.classList.remove("buttonContainer__Active");
         });
 
         buttonContainer.addEventListener("click", () => {
@@ -177,7 +177,9 @@
                     );
                     button.classList.remove("fa-pause");
                     button.classList.add("fa-play");
+                  console.log("here")
                     button.parentNode.classList.remove("buttonContainer__Active");
+                    button.parentNode.classList.remove("buttonContainer__DemoActive");
                 }
             });
   
@@ -185,12 +187,13 @@
                 wavesurfer.play();
                 playButton.classList.remove("fa-play");
                 playButton.classList.add("fa-pause");
-                buttonContainer.classList.add("buttonContainer__Active");
+                playButton.parentNode.classList.add("buttonContainer__Active");
             } else {
                 wavesurfer.pause();
                 playButton.classList.remove("fa-pause");
                 playButton.classList.add("fa-play");
-                buttonContainer.classList.remove("buttonContainer__Active");
+                playButton.parentNode.classList.remove("buttonContainer__Active");
+                playButton.parentNode.classList.remove("buttonContainer__DemoActive");
             }
         });
       
@@ -198,12 +201,10 @@
   
           buttonContainer.addEventListener(("mousedown"), () => {
               const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-              // buttonContainer.style.transform = "scale(0.8)";
           })
     
           buttonContainer.addEventListener(("mouseup"), () => {
               const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-              // buttonContainer.style.transform = "scale(1)";
           })
   
           wavesurfer.on('interaction', () => {
@@ -217,6 +218,7 @@
                       button.classList.remove("fa-pause");
                       button.classList.add("fa-play");
                       button.parentNode.classList.remove("buttonContainer__Active");
+                      button.parentNode.classList.remove("buttonContainer__DemoActive");
                   }
               });
           })
