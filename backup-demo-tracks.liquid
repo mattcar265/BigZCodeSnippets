@@ -118,21 +118,6 @@
         return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
     }
 
-    // const updateButtonContainer = (button) => {
-    //     if (button.classList.contains('fa-play')) {
-    //         // Add a specific class to the button's parent container
-    //         button.closest('.buttonContainer').classList.add('your-new-class');
-    //     } else {
-    //         // Optionally, remove the class if 'fa-play' is not present
-    //         button.closest('.buttonContainer').classList.remove('your-new-class');
-    //     }
-    // };
-    
-    // // Add event listeners to each button
-    // playButtons.forEach(button => {
-    //     button.addEventListener('click', () => updateButtonContainer(button));
-    // });
-
     const createWaveForm = (url) => {
         const container = ".waveContainer__Demo";
   
@@ -217,8 +202,6 @@
                 wavesurfer.pause();
                 playButton.classList.remove("fa-pause");
                 playButton.classList.add("fa-play");
-                playButton.parentNode.classList.remove("buttonContainer__DemoActive");
-                playButton.parentNode.classList.remove("buttonContainer__Active");
             }
         });
   
@@ -236,23 +219,12 @@
                     button.parentNode.classList.remove("buttonContainer__Active");
                 }
             });
+            if (wavesurfer.getCurrentTime() > 0) {
+                buttonContainer.classList.add("buttonContainer__DemoActive");
+            } else {
+                buttonContainer.classList.remove("buttonContainer__DemoActive");
+            }
         })
-
-      // if(isMobileDevice()) {
-      //     buttonContainer.addEventListener("touchstart", () => {
-      //         // if(buttonContainer.style.backgroundColor == "#777" || buttonContainer.style.backgroundColor == "rgb(119, 119, 119)") { // CSS colors are often returned in rgb format
-      //         //     buttonContainer.style.backgroundColor = "#1fabee";
-      //         // } else {
-      //         //     buttonContainer.style.backgroundColor = "#777";
-      //         // }
-      //         buttonContainer.style.transform = "scale(0.8)";
-      //     });
-      
-      //     buttonContainer.addEventListener("touchend", () => {
-      //         const thisButton = buttonContainer.querySelector('.fa-play, .fa-pause');
-      //         buttonContainer.style.transform = "scale(1)";
-      //     });
-      // }
   
         const previewTitle = document.createElement("p");
         previewTitle.classList.add("previewTitle__Demo");
