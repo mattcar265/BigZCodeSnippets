@@ -1,16 +1,5 @@
-# Change to the blue or transparent
+# What the waves will look like
 ![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/2bbc751d-43db-42ff-9ad7-57299f7561a2)
-
-Navigate to the above code editor, then  
-
-**Transparent**: `{% include 'wave-form-previews' %}`  
-or  
-**Blue**: `{% include 'wave-form-previews-alt' %}`
-
-this works for both wave-form-previews and wave-form-demo-tracks, by adding/removing the "-alt"
-
-![bigzdemo](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/b682739e-ee89-4e54-aa3a-c29a36973650)
-
 
 # Adding an audio file
 The audio files are all uploaded to the [Content > files](https://admin.shopify.com/store/big-z-sounds/content/files?selectedView=all) tab of the admin menu
