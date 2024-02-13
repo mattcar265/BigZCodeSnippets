@@ -1,5 +1,6 @@
 # Change to the blue or transparent
-![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/a3736462-94ce-498c-a0fb-13edaae94d6b)
+![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/2bbc751d-43db-42ff-9ad7-57299f7561a2)
+
 Navigate to the above code editor, then  
 
 **Transparent**: `{% include 'wave-form-previews' %}`  
