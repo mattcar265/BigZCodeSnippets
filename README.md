@@ -7,6 +7,3 @@ To add a new song, you can add it to the Content tab, then get a link from the b
 
 # Viewing the widget's code on your site
 It ended up being all new written code saved under: [wave-form-previews.liquid](https://admin.shopify.com/store/big-z-sounds/themes/79137013832)
-
-# Updated
-![image](https://github.com/mattcar265/BigZCodeSnippets/assets/98040867/94bf1ab1-0224-4e6e-af1e-dec3b35b9999)
